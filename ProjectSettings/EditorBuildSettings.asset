@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/LSW/Scene/IntroScene.unity
     guid: 91455d9ca1692421d84d886054c5fa8a
   - enabled: 1
-    path: Assets/LSW/Scene/SangWun.unity
+    path: Assets/LSW/Scene/MainScene.unity
     guid: b6b4420b8df9841ce811137bebbfa99a
   m_configObjects: {}

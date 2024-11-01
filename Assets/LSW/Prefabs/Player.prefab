@@ -205,6 +205,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f697699b-baed-4ee1-a9a2-983dbca7e736
     m_ActionName: Player/Interaction[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5cc89bee-644a-488f-a2f1-8e37f619beda
+    m_ActionName: Player/Option[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -226,12 +230,14 @@ MonoBehaviour:
   jumptForce: 5
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 4294967295
   cameraContainer: {fileID: 3379858642607254576}
   minXLook: -85
   maxXLook: 85
   lookSensitivity: 1
   canLook: 1
+  poster: {fileID: 0}
+  option: {fileID: 0}
 --- !u!54 &924638093130600165
 Rigidbody:
   m_ObjectHideFlags: 0

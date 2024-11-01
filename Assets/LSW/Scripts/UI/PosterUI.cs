@@ -26,6 +26,6 @@ public class PosterUI : MonoBehaviour
     public void OnClickWanted()
     {
         wanted.SetActive(false);
-        SceneManager.LoadScene("SangWun");
+        SceneManager.LoadScene("MainScene");
     } 
 }
