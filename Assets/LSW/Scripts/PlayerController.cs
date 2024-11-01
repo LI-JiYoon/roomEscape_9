@@ -41,7 +41,19 @@ public class PlayerController : MonoBehaviour
        
     }
 
-    
+    private void Update()
+    {
+        if (poster.activeSelf || option.optionPanel.activeSelf)
+        {
+            canLook = false;
+            Time.timeScale = 0;
+        }
+        else
+        {
+            canLook = true;
+            Time.timeScale = 1;
+        }
+    }
 
     private void FixedUpdate()
     {
