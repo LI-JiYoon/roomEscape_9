@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-
 public class PosterUI : MonoBehaviour
 {
     [SerializeField] private GameObject poster;
@@ -13,7 +12,6 @@ public class PosterUI : MonoBehaviour
     [Space(10)]
     public UnityEvent callback;
 
-
     public void OnPoster()
     {
         poster.transform.DOLocalMoveY(poster.transform.localPosition.y - 1200f, 1.6f).SetEase(Ease.OutCubic).OnComplete(() =>
@@ -22,7 +20,6 @@ public class PosterUI : MonoBehaviour
         });
     }
 
-<<<<<<<< HEAD:Assets/jyoon/Scripts/UIs/UI/PosterUI.cs
     public void OnClickPoster()
     {
         wanted.SetActive(true);
@@ -32,8 +29,6 @@ public class PosterUI : MonoBehaviour
     {
         wanted.SetActive(false);
         SceneManager.LoadScene("MainScene");
-    } 
-========
-  
->>>>>>>> jyoon:Assets/jyoon/Scripts/UIs/PosterUI.cs
+    }
+
 }
