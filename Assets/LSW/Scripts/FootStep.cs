@@ -7,6 +7,7 @@ public class FootStep : MonoBehaviour
     private Rigidbody _rigidbody;
     public float footstepThreshold;
     public float footstepRate;
+    private float originaFootStepRate;
     private float footStepTime;
     public int lastClipIndex;
 
@@ -15,6 +16,7 @@ public class FootStep : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
+        originaFootStepRate = footstepRate;
     }
 
     private void Update()
@@ -28,6 +30,7 @@ public class FootStep : MonoBehaviour
                     footStepTime = Time.time;
                     lastClipIndex = (lastClipIndex + 1) % footstepClips.Length;
                     audioSource.PlayOneShot(footstepClips[lastClipIndex]);
+                    Debug.Log("!");
                 }
             }
         }
@@ -36,10 +39,12 @@ public class FootStep : MonoBehaviour
     public void SetFootstepRateMultiplier(float multiplier)
     {
         footstepRate /= multiplier;
+        footStepTime = Time.time;
     }
 
-    public void ResetFootstepRate(float originalRate)
+    public void ResetFootstepRate()
     {
-        footstepRate = originalRate;
+        footstepRate = originaFootStepRate;
+        footStepTime = Time.time;
     }
 }

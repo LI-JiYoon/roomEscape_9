@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     public bool isHiding;
     public FootStep footStep;
-    private float originalFootstepRate;
 
 
     [Header("Movement")]
@@ -111,7 +110,7 @@ public class PlayerController : MonoBehaviour
         else if (context.phase == InputActionPhase.Canceled)
         {
             moveSpeed /= 2;
-            footStep.ResetFootstepRate(originalFootstepRate);  // 발소리 속도 원래대로
+            footStep.ResetFootstepRate();  // 발소리 속도 원래대로
         }
     }
 
@@ -127,7 +126,7 @@ public class PlayerController : MonoBehaviour
         {
             moveSpeed *= 2;
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2f, transform.localScale.z);
-            footStep.ResetFootstepRate(originalFootstepRate);  // 발소리 속도 원래대로
+            footStep.ResetFootstepRate();  // 발소리 속도 원래대로
         }
     }
 
