@@ -6,6 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     private CharacterController controller;
     public bool isHiding;
+    public FootStep footStep;
+    private float originalFootstepRate;
+
 
     [Header("Movement")]
     public float moveSpeed;
@@ -36,6 +39,8 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        footStep = GetComponent<FootStep>();
+
 
     }
 
@@ -96,15 +101,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnRunInPut(InputAction.CallbackContext context)
+    public void OnRunInput(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
         {
             moveSpeed *= 2;
+            footStep.SetFootstepRateMultiplier(2);  // 발소리 2배 빠르게
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
             moveSpeed /= 2;
+            footStep.ResetFootstepRate(originalFootstepRate);  // 발소리 속도 원래대로
         }
     }
 
@@ -112,15 +119,15 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
-
             moveSpeed /= 2;
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 0.5f, transform.localScale.z);
-
+            footStep.SetFootstepRateMultiplier(0.5f);  // 발소리 2배 느리게
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
             moveSpeed *= 2;
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2f, transform.localScale.z);
+            footStep.ResetFootstepRate(originalFootstepRate);  // 발소리 속도 원래대로
         }
     }
 
