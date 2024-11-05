@@ -41,6 +41,8 @@ public class Ending : MonoBehaviour
     {
         if (!excapeKey) return;
 
+        this.gameObject.SetActive(true);
+
         if (trueEndingItem)
         {
             trueEndingImage.enabled = true;
