@@ -28,13 +28,8 @@ public class Ending : MonoBehaviour
         normalEndingImage.enabled = false;
         trueEndingImage.enabled = false;
 
+        //EndingItem에서 Find 할때 꺼져있으면 못찾음
         Invoke("SetActiveFalse", 0.1f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SetActiveFalse()
