@@ -7,6 +7,8 @@ public class OptionUI : MonoBehaviour
     public GameObject optionPanel;
     public GameObject loadBtn;
     public GameObject saveBtn;
+    public Slider musicSlider;
+    public Slider soundSlider;
 
     public Button musicBtn;
     public Button soundBtn;
@@ -83,5 +85,21 @@ public class OptionUI : MonoBehaviour
     public void OnClickExitBtn()
     {
         SceneManager.LoadScene("IntroScene");
+    }
+
+    public void OnMusicSliderValueChanged(float value)
+    {
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.SetMusicVolume(value);
+        }
+    }
+
+    public void OnSoundSliderValueChanged(float value)
+    {
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.SetSoundVolume(value);
+        }
     }
 }

@@ -41,14 +41,4 @@ public class InGameUI : MonoBehaviour
     {
         achievementPanel.SetActive(!achievementPanel.activeSelf);
     }
-
-    public void OnClickMusicIcon()
-    {
-        
-    }
-
-    public void OnClickSoundIcon()
-    { 
-   
-    }
 }

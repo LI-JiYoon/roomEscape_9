@@ -85,4 +85,24 @@ public class SoundManager : MonoBehaviour
     {
         if (footStep != null) footStep.mute = isMuted;
     }
+
+    public void SetMusicVolume(float volume)
+    {
+        if (IntroBgm != null)
+        {
+            IntroBgm.volume = volume;
+        }
+        else
+        {
+            GameBgm.volume = volume;
+        }
+    }
+
+    public void SetSoundVolume(float volume)
+    {
+        if (footStep != null)
+        {
+            footStep.volume = volume;
+        }
+    }
 }
