@@ -14,8 +14,8 @@ public class OptionUI : MonoBehaviour
     private Color originalColor;
     private Color muteColor = Color.red;
 
-    private bool isMusicMuted;
-    private bool isSoundMuted;
+    public bool isMusicMuted;
+    public bool isSoundMuted;
 
     private void Start()
     {
@@ -25,7 +25,7 @@ public class OptionUI : MonoBehaviour
         originalColor = musicBtn.image.color;
 
         UpdateMusicIcon();
-        //UpdateSoundIcon();
+        UpdateSoundIcon();
     }
 
     public void OpenOptionUI()
@@ -56,12 +56,12 @@ public class OptionUI : MonoBehaviour
         UpdateMusicIcon();
     }
 
-    //public void OnClickSoundIcon()
-    //{
-    //    isSoundMuted = !isSoundMuted;
-    //    PlayerPrefs.SetInt("SoundMuted", isSoundMuted ? 1 : 0);
-    //    UpdateSoundIcon();
-    //}
+    public void OnClickSoundIcon()
+    {
+        isSoundMuted = !isSoundMuted;
+        PlayerPrefs.SetInt("SoundMuted", isSoundMuted ? 1 : 0);
+        UpdateSoundIcon();
+    }
 
     private void UpdateMusicIcon()
     {
@@ -69,11 +69,11 @@ public class OptionUI : MonoBehaviour
         SoundManager.Instance.SetMusicMute(isMusicMuted);
     }
 
-    //private void UpdateSoundIcon()
-    //{
-    //    soundBtn.image.color = isSoundMuted ? muteColor : originalColor;
-    //    SoundManager.Instance.SetSoundMute(isSoundMuted);
-    //}
+    private void UpdateSoundIcon()
+    {
+        soundBtn.image.color = isSoundMuted ? muteColor : originalColor;
+        SoundManager.Instance.SetSoundMute(isSoundMuted);
+    }
 
     public void OnClickCloseBtn()
     {

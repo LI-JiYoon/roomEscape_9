@@ -25,6 +25,7 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private AudioSource IntroBgm;
     [SerializeField] private AudioSource GameBgm;
+    public AudioSource footStep;
 
     private void Awake()
     {
@@ -78,5 +79,10 @@ public class SoundManager : MonoBehaviour
     {
         if (IntroBgm != null) IntroBgm.mute = isMuted;
         if (GameBgm != null) GameBgm.mute = isMuted;
+    }
+
+    public void SetSoundMute(bool isMuted)
+    {
+        if (footStep != null) footStep.mute = isMuted;
     }
 }
