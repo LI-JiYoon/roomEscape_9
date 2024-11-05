@@ -309,7 +309,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Bad Ending
+  m_Text: BAD ENDING
 --- !u!1 &6016909806679223480
 GameObject:
   m_ObjectHideFlags: 0
