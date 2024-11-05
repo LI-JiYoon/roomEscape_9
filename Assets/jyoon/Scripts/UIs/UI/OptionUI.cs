@@ -21,6 +21,11 @@ public class OptionUI : MonoBehaviour
 
     private void Start()
     {
+        musicSlider.value = SoundManager.Instance != null ? SoundManager.Instance.GetMusicVolume() : 1f;
+        musicSlider.onValueChanged.AddListener(OnMusicSliderValueChanged);
+        soundSlider.value = SoundManager.Instance != null ? SoundManager.Instance.GetSoundVolume() : 1f;
+        soundSlider.onValueChanged.AddListener(OnSoundSliderValueChanged);
+
         isMusicMuted = PlayerPrefs.GetInt("MusicMuted", 0) == 1;
         isSoundMuted = PlayerPrefs.GetInt("SoundMuted", 0) == 1;
 
