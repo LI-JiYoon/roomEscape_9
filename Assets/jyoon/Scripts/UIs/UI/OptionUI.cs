@@ -7,6 +7,8 @@ public class OptionUI : MonoBehaviour
     public GameObject optionPanel;
     public GameObject loadBtn;
     public GameObject saveBtn;
+    public Slider musicSlider;
+    public Slider soundSlider;
 
     public Button musicBtn;
     public Button soundBtn;
@@ -19,6 +21,11 @@ public class OptionUI : MonoBehaviour
 
     private void Start()
     {
+        musicSlider.value = SoundManager.Instance != null ? SoundManager.Instance.GetMusicVolume() : 1f;
+        musicSlider.onValueChanged.AddListener(OnMusicSliderValueChanged);
+        soundSlider.value = SoundManager.Instance != null ? SoundManager.Instance.GetSoundVolume() : 1f;
+        soundSlider.onValueChanged.AddListener(OnSoundSliderValueChanged);
+
         isMusicMuted = PlayerPrefs.GetInt("MusicMuted", 0) == 1;
         isSoundMuted = PlayerPrefs.GetInt("SoundMuted", 0) == 1;
 
@@ -83,5 +90,21 @@ public class OptionUI : MonoBehaviour
     public void OnClickExitBtn()
     {
         SceneManager.LoadScene("IntroScene");
+    }
+
+    public void OnMusicSliderValueChanged(float value)
+    {
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.SetMusicVolume(value);
+        }
+    }
+
+    public void OnSoundSliderValueChanged(float value)
+    {
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.SetSoundVolume(value);
+        }
     }
 }

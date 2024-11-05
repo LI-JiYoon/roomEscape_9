@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +10,7 @@ public class SoundManager : MonoBehaviour
     {
         get
         {
-            if(instance == null)
+            if (instance == null)
             {
                 instance = FindObjectOfType<SoundManager>();
                 if (instance == null)
@@ -17,14 +18,13 @@ public class SoundManager : MonoBehaviour
                     GameObject soundManager = new GameObject("SoundManager");
                     instance = soundManager.AddComponent<SoundManager>();
                     DontDestroyOnLoad(soundManager);
-                }            
+                }
             }
             return instance;
         }
     }
 
-    [SerializeField] private AudioSource IntroBgm;
-    [SerializeField] private AudioSource GameBgm;
+    [SerializeField] private List<AudioSource> bgmSources = new List<AudioSource>(); 
     public AudioSource footStep;
 
     private void Awake()
@@ -61,28 +61,68 @@ public class SoundManager : MonoBehaviour
 
         if (sceneName == "IntroScene")
         {
-            if (IntroBgm != null) IntroBgm.Play();
+            bgmSources[0].Play(); 
         }
-        else if (sceneName == "MainScene")
+        else if (sceneName == "Sangwun")
         {
-            if (GameBgm != null) GameBgm.Play();
+            bgmSources[1].Play(); 
         }
     }
 
     private void StopAllBGM()
     {
-        if (IntroBgm != null) IntroBgm.Stop();
-        if (GameBgm != null) GameBgm.Stop();
+        foreach (var bgm in bgmSources)
+        {
+            if (bgm != null) bgm.Stop();
+        }
     }
 
     public void SetMusicMute(bool isMuted)
     {
-        if (IntroBgm != null) IntroBgm.mute = isMuted;
-        if (GameBgm != null) GameBgm.mute = isMuted;
+        foreach (var bgm in bgmSources)
+        {
+            if (bgm != null) bgm.mute = isMuted;
+        }
     }
 
     public void SetSoundMute(bool isMuted)
     {
         if (footStep != null) footStep.mute = isMuted;
+    }
+
+    public float GetMusicVolume()
+    {
+        foreach (var bgm in bgmSources)
+        {
+            if (bgm != null && bgm.isPlaying)
+            {
+                return bgm.volume;
+            }
+        }
+        return 1f; 
+    }
+
+    public float GetSoundVolume()
+    {
+        if (footStep != null)
+        {
+            return footStep.volume;
+        }
+        return 1f; 
+    }
+    public void SetMusicVolume(float volume)
+    {
+        foreach (var bgm in bgmSources)
+        {
+            if (bgm != null) bgm.volume = volume;
+        }
+    }
+
+    public void SetSoundVolume(float volume)
+    {
+        if (footStep != null)
+        {
+            footStep.volume = volume;
+        }
     }
 }
