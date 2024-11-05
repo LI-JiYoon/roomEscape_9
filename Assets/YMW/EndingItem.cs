@@ -30,7 +30,7 @@ public class EndingItem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (TryGetComponent(out PlayerInput playerInput))
+        if (other.TryGetComponent(out PlayerInput playerInput))
         {
             switch (type)
             {
@@ -42,6 +42,8 @@ public class EndingItem : MonoBehaviour
                     ending.trueEndingItem = true;
                     break;
             }
+
+            Destroy(gameObject, 0.1f);
         }
     }
 }
