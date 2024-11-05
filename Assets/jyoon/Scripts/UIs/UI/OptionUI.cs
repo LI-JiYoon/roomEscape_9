@@ -74,4 +74,14 @@ public class OptionUI : MonoBehaviour
     //    soundBtn.image.color = isSoundMuted ? muteColor : originalColor;
     //    SoundManager.Instance.SetSoundMute(isSoundMuted);
     //}
+
+    public void OnClickCloseBtn()
+    {
+        optionPanel.SetActive(false);
+    }
+
+    public void OnClickExitBtn()
+    {
+        SceneManager.LoadScene("IntroScene");
+    }
 }

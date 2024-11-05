@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour
     public Action inventory;
 
     private Rigidbody rigidbody;
-    public GameObject poster;
     private bool isOptionPanelActive = false;
     public OptionUI option;
 
@@ -50,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        //if (poster.activeSelf || option.optionPanel.activeSelf)
+        //if (option.optionPanel.activeSelf)
         //{
         //    canLook = false;
         //    Time.timeScale = 0;
