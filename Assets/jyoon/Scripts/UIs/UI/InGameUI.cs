@@ -1,22 +1,31 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class InGameUI : MonoBehaviour
 {
-    public GameObject storyPanel;
     public GameObject optionPanel;
+    public Image musicIcon;
+    public Image soundIcon;
+    public GameObject achievementPanel;
     public GameObject saveButton;
     public GameObject loadButton;
 
+    public OptionUI option;
+
+    private Color originalColor; 
+
     private void Start()
     {
-        
+        originalColor = musicIcon.color; 
     }
 
-    public void OnClickStoryPanel()
+    private void Update()
     {
-        storyPanel.SetActive(false);
+        musicIcon.color = option.isMusicMuted ? Color.red : originalColor;
+        soundIcon.color = option.isSoundMuted ? Color.red : originalColor;
     }
+                                                                           
 
     public void OnClickCloseBtn()
     {
@@ -28,4 +37,18 @@ public class InGameUI : MonoBehaviour
         SceneManager.LoadScene("IntroScene");
     }
 
+    public void OnClickAchievementIcon()
+    {
+        achievementPanel.SetActive(!achievementPanel.activeSelf);
+    }
+
+    public void OnClickMusicIcon()
+    {
+        
+    }
+
+    public void OnClickSoundIcon()
+    { 
+   
+    }
 }
