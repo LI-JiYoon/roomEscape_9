@@ -11,12 +11,21 @@ public enum ItemType
 
 public class EndingItem : MonoBehaviour
 {
-    Ending ending;
+    public Ending ending;
     public ItemType type;
 
     private void Start()
     {
         ending = FindObjectOfType<Ending>();
+
+        if (ending == null)
+        {
+            Debug.Log("null");
+        }
+        else
+        {
+            Debug.Log("ff");
+        }
     }
 
     private void OnTriggerEnter(Collider other)
