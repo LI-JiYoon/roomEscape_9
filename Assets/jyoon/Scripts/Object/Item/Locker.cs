@@ -1,20 +1,51 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Locker : InteractableObject
 {
-    public Transform hidePosition; // °ü¹°ÇÔ ³»ºÎÀÇ À§Ä¡¸¦ ³ªÅ¸³À´Ï´Ù
+    public Transform hidePosition; // ê´€ë¬¼í•¨ ë‚´ë¶€ì˜ ìœ„ì¹˜ë¥¼ ë‚˜íƒ€ëƒ…ë‹ˆë‹¤
+    public Transform outPosition;
 
-    // °ü¹°ÇÔ°ú »óÈ£ÀÛ¿ëÇÒ ¶§ Ç¥½ÃÇÒ ÇÁ·ÒÇÁÆ® ÅØ½ºÆ®¸¦ °¡Á®¿É´Ï´Ù
+    Player player;
+
+    // ê´€ë¬¼í•¨ê³¼ ìƒí˜¸ì‘ìš©í•  ë•Œ í‘œì‹œí•  í”„ë¡¬í”„íŠ¸ í…ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤
     public override string GetInteractPrompt()
     {
-        return "[E] ¼û±â";
+        return "[E] ìˆ¨ê¸°";
     }
 
-    // °ü¹°ÇÔ°úÀÇ »óÈ£ÀÛ¿ëÀ» Ã³¸®ÇÕ´Ï´Ù
+    // ê´€ë¬¼í•¨ê³¼ì˜ ìƒí˜¸ì‘ìš©ì„ ì²˜ë¦¬í•©ë‹ˆë‹¤
     public override void OnInteract()
     {
-        Player player = CharacterManager.Instance.Player;
-        player.transform.position = hidePosition.position;
-        Debug.Log("Player is hiding in the locker.");
+        player = CharacterManager.Instance.Player;
+        if (player.controller.isHiding == false)
+        {   
+            //player.controller.isHiding = true;
+            Invoke("SetIsHidingTrue", 0.5f);
+            player.transform.position = hidePosition.position;
+            player.transform.rotation = hidePosition.rotation;
+            player.controller.rigidbody.isKinematic = true;
+            player.controller.outPosition = outPosition;
+            Debug.Log("Player is hiding in the locker.");
+        }
+        //else
+        //{
+        //    //player.controller.isHiding = false;
+        //    Invoke("SetIsHidingFalse", 0.5f);
+        //    player.transform.position = outPosition.position;
+        //    player.transform.rotation = outPosition.rotation;
+        //    player.controller.rigidbody.isKinematic = false;
+        //    Debug.Log("Player is out from the locker.");
+        //}
     }
+
+    void SetIsHidingTrue()
+    {
+        player.controller.isHiding = true;
+    }
+//    void SetIsHidingFalse()
+//    {
+//        player.controller.isHiding = false;
+//    }
 }

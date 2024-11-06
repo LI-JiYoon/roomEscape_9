@@ -2,9 +2,12 @@ using UnityEngine;
 
 public enum ItemType
 {
+    EscapeKey,
+    TrueEndingItem,
     Resource,
-    Equipable
-    
+    Equipable,
+    Consumable
+
 }
 
 public enum ConsumableType

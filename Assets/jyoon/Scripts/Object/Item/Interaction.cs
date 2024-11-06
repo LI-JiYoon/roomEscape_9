@@ -6,42 +6,45 @@ public class Interaction : MonoBehaviour
 {
     public static Interaction Instance;
 
-    public float checkRate = 0.05f; // »óÈ£ÀÛ¿ë °¡´ÉÇÑ ¿ÀºêÁ§Æ®¸¦ ¾ó¸¶³ª ÀÚÁÖ Ã¼Å©ÇÒÁö ¼³Á¤ÇÕ´Ï´Ù
+    public float checkRate = 0.05f; // ìƒí˜¸ì‘ìš© ê°€ëŠ¥í•œ ì˜¤ë¸Œì íŠ¸ë¥¼ ì–¼ë§ˆë‚˜ ìì£¼ ì²´í¬í• ì§€ ì„¤ì •í•©ë‹ˆë‹¤
     private float lastCheckTime;
-    public float maxCheckDistance; // »óÈ£ÀÛ¿ë Ã¼Å© ÃÖ´ë °Å¸®
-    public LayerMask layerMask; // »óÈ£ÀÛ¿ë °¡´ÉÇÑ ¿ÀºêÁ§Æ®ÀÇ ·¹ÀÌ¾î¸¦ ¼³Á¤ÇÕ´Ï´Ù
+    public float maxCheckDistance; // ìƒí˜¸ì‘ìš© ì²´í¬ ìµœëŒ€ ê±°ë¦¬
+    public LayerMask layerMask; // ìƒí˜¸ì‘ìš© ê°€ëŠ¥í•œ ì˜¤ë¸Œì íŠ¸ì˜ ë ˆì´ì–´ë¥¼ ì„¤ì •í•©ë‹ˆë‹¤
 
-    public GameObject curInteractGameObject; // ÇöÀç È­¸é¿¡ ÀÖ´Â »óÈ£ÀÛ¿ë °¡´ÉÇÑ ¿ÀºêÁ§Æ®
-    public IInteractable curInteractable; // ÇöÀç È­¸é¿¡ ÀÖ´Â »óÈ£ÀÛ¿ë °¡´ÉÇÑ ÄÄÆ÷³ÍÆ®
+    public GameObject curInteractGameObject; // í˜„ì¬ í™”ë©´ì— ìˆëŠ” ìƒí˜¸ì‘ìš© ê°€ëŠ¥í•œ ì˜¤ë¸Œì íŠ¸
+    public IInteractable curInteractable; // í˜„ì¬ í™”ë©´ì— ìˆëŠ” ìƒí˜¸ì‘ìš© ê°€ëŠ¥í•œ ì»´í¬ë„ŒíŠ¸
 
-    public TextMeshProUGUI promptText; // »óÈ£ÀÛ¿ë ÇÁ·ÒÇÁÆ® UI ÅØ½ºÆ®
-    private Camera camera; // ¸ŞÀÎ Ä«¸Ş¶ó ÂüÁ¶
+    public TextMeshProUGUI promptText; // ìƒí˜¸ì‘ìš© í”„ë¡¬í”„íŠ¸ UI í…ìŠ¤íŠ¸
+    private Camera camera; // ë©”ì¸ ì¹´ë©”ë¼ ì°¸ì¡°
+    public bool isCheck = false;
+
 
     private void Awake()
     {
-        // ´Ù¸¥ ½ºÅ©¸³Æ®¿¡¼­ ½±°Ô Á¢±ÙÇÒ ¼ö ÀÖµµ·Ï ÀÌ ÀÎ½ºÅÏ½º¸¦ ¼³Á¤ÇÕ´Ï´Ù
+        // ë‹¤ë¥¸ ìŠ¤í¬ë¦½íŠ¸ì—ì„œ ì‰½ê²Œ ì ‘ê·¼í•  ìˆ˜ ìˆë„ë¡ ì´ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ì„¤ì •í•©ë‹ˆë‹¤
         Instance = this;
     }
 
     void Start()
     {
-        // ¸ŞÀÎ Ä«¸Ş¶ó ÂüÁ¶¸¦ °¡Á®¿É´Ï´Ù
+        // ë©”ì¸ ì¹´ë©”ë¼ ì°¸ì¡°ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤
         camera = Camera.main;
     }
     void Update()
     {
-        // Á¤±âÀûÀ¸·Î »óÈ£ÀÛ¿ë °¡´ÉÇÑ ¿ÀºêÁ§Æ®¸¦ Ã¼Å©ÇÕ´Ï´Ù
+        // ì •ê¸°ì ìœ¼ë¡œ ìƒí˜¸ì‘ìš© ê°€ëŠ¥í•œ ì˜¤ë¸Œì íŠ¸ë¥¼ ì²´í¬í•©ë‹ˆë‹¤
         if (Time.time - lastCheckTime > checkRate)
         {
             lastCheckTime = Time.time;
 
-            // È­¸éÀÇ Áß¾Ó¿¡¼­ ·¹ÀÌ¸¦ ½÷¼­ »óÈ£ÀÛ¿ë °¡´ÉÇÑ ¿ÀºêÁ§Æ®¸¦ Ã¼Å©ÇÕ´Ï´Ù
+            // í™”ë©´ì˜ ì¤‘ì•™ì—ì„œ ë ˆì´ë¥¼ ì´ì„œ ìƒí˜¸ì‘ìš© ê°€ëŠ¥í•œ ì˜¤ë¸Œì íŠ¸ë¥¼ ì²´í¬í•©ë‹ˆë‹¤
             Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, maxCheckDistance, layerMask))
             {
-                // È÷Æ®ÇÑ ¿ÀºêÁ§Æ®°¡ ÇöÀç »óÈ£ÀÛ¿ë ¿ÀºêÁ§Æ®¿Í ´Ù¸£¸é ¾÷µ¥ÀÌÆ®ÇÕ´Ï´Ù
+                isCheck = true;
+                // íˆíŠ¸í•œ ì˜¤ë¸Œì íŠ¸ê°€ í˜„ì¬ ìƒí˜¸ì‘ìš© ì˜¤ë¸Œì íŠ¸ì™€ ë‹¤ë¥´ë©´ ì—…ë°ì´íŠ¸í•©ë‹ˆë‹¤
                 if (hit.collider.gameObject != curInteractGameObject)
                 {
                     curInteractGameObject = hit.collider.gameObject;
@@ -51,7 +54,8 @@ public class Interaction : MonoBehaviour
             }
             else
             {
-                // »óÈ£ÀÛ¿ë °¡´ÉÇÑ ¿ÀºêÁ§Æ®¸¦ Ã£Áö ¸øÇÑ °æ¿ì ÇöÀç »óÈ£ÀÛ¿ë ¿ÀºêÁ§Æ®¸¦ Áö¿ó´Ï´Ù
+                isCheck = false;
+                // ìƒí˜¸ì‘ìš© ê°€ëŠ¥í•œ ì˜¤ë¸Œì íŠ¸ë¥¼ ì°¾ì§€ ëª»í•œ ê²½ìš° í˜„ì¬ ìƒí˜¸ì‘ìš© ì˜¤ë¸Œì íŠ¸ë¥¼ ì§€ì›ë‹ˆë‹¤
                 curInteractGameObject = null;
                 curInteractable = null;
                 promptText.gameObject.SetActive(false);
@@ -59,7 +63,7 @@ public class Interaction : MonoBehaviour
         }
     }
 
-    // ÇöÀç »óÈ£ÀÛ¿ë °¡´ÉÇÑ ¿ÀºêÁ§Æ®¿¡ µû¶ó ÇÁ·ÒÇÁÆ® ÅØ½ºÆ®¸¦ ¼³Á¤ÇÕ´Ï´Ù
+    // í˜„ì¬ ìƒí˜¸ì‘ìš© ê°€ëŠ¥í•œ ì˜¤ë¸Œì íŠ¸ì— ë”°ë¼ í”„ë¡¬í”„íŠ¸ í…ìŠ¤íŠ¸ë¥¼ ì„¤ì •í•©ë‹ˆë‹¤
     private void SetPromptText()
     {
         if (curInteractable != null)

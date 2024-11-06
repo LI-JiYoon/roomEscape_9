@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/LSW/Scene/MainScene.unity
     guid: b6b4420b8df9841ce811137bebbfa99a
   - enabled: 1
-    path: Assets/jyoon/Scenes/GameScene/GameScene.unity
+    path: Assets/jyoon/Scenes/GameScene.unity
     guid: ca8de65614f8aea4e9616678812da075
   m_configObjects: {}

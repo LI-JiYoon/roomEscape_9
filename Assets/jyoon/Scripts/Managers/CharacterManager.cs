@@ -20,7 +20,7 @@ public class CharacterManager : MonoBehaviour
         get { return _player; }
         set { _player = value; }
     }
-    private Player _player;
+    private Player _player = new Player();
 
     private void Awake()
     {

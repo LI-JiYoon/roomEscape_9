@@ -12,7 +12,8 @@ namespace RoomEscape.Managers
         public bool isGamePaused;
         public Canvas gameUICanvas;  // Reference to the UI Canvas
         public PlayerController playerController;
-        public KeyPositionManager keyPositionManager;
+        public Key key = null;
+       
 
 
         void Awake()
@@ -22,19 +23,10 @@ namespace RoomEscape.Managers
                 instance = this;
             }
         }
-        private void Start()
+        void Start()
         {
-            if (keyPositionManager != null)
-            {
-                keyPositionManager.PopulateKeyPositions();
-                // ÀÌÈÄ ¿­¼è ¿ÀºêÁ§Æ®¸¦ ·£´ı À§Ä¡¿¡ »ı¼ºÇÏ´Â ÀÛ¾÷µµ ¿©±â¼­ È£Ãâ °¡´É
-                Vector3 randomPosition = keyPositionManager.GetRandomKeyPosition();
-                // ¿­¼è »ı¼º ÇÔ¼ö È£Ãâ (¿¹: Instantiate(keyPrefab, randomPosition, Quaternion.identity));
-            }
-            else
-            {
-                Debug.LogError("KeyPositionManager is not assigned in GameManager.");
-            }
+            // ê²Œì„ ì‹œì‘ ì‹œ ì €ì¥ëœ ì§„í–‰ ìƒí™©ì„ ë¶ˆëŸ¬ì™€ ê²Œì„ ìƒíƒœë¥¼ ì—…ë°ì´íŠ¸í•©ë‹ˆë‹¤.
+            UpdateGameState();
         }
         void Update()
         {
@@ -91,6 +83,35 @@ namespace RoomEscape.Managers
         public void EndBranching()
         {
             // Handle Ending Branch Logic
+        }
+        private void UpdateGameState()
+        {
+            // íšë“í•œ ì•„ì´í…œë“¤ì„ í™•ì¸í•˜ê³  ì´ë¯¸ íšë“í•œ ì•„ì´í…œì€ íŒŒê´´í•©ë‹ˆë‹¤
+            foreach (ItemObject item in FindObjectsOfType<ItemObject>())
+            {
+                if (SaveManager.Instance.IsItemAcquired(item.data.name))
+                {
+                    Destroy(item.gameObject);
+                }
+            }
+
+            // ì—´ë¦° ë¬¸ë“¤ì„ í™•ì¸í•˜ê³  ì´ë¯¸ ì—´ë¦° ë¬¸ì€ ì• ë‹ˆë©”ì´ì…˜ì„ ì‹¤í–‰í•©ë‹ˆë‹¤
+            foreach (Door door in FindObjectsOfType<Door>())
+            {
+                if (SaveManager.Instance.IsDoorOpened(door.gameObject.name))
+                {
+                    door.doorAnimator.SetTrigger("Open");
+                }
+            }
+
+            // í•´ê²°ëœ í¼ì¦ë“¤ì„ í™•ì¸í•˜ê³  ì´ë¯¸ í•´ê²°ëœ í¼ì¦ì˜ UIëŠ” ìˆ¨ê¹ë‹ˆë‹¤
+            foreach (Safe safe in FindObjectsOfType<Safe>())
+            {
+                if (SaveManager.Instance.IsPuzzleSolved(safe.gameObject.name))
+                {
+                    PopupManager.Instance.HidePopup(safe.safeUI);
+                }
+            }
         }
     }
 

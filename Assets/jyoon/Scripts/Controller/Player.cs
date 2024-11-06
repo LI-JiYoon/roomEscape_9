@@ -4,33 +4,33 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public PlayerController controller;
-    public Equipment equipment;
+   public Equipment equipment;
 
     public ItemData itemData;
     public Action addItem;
 
     private void Awake()
     {
-        // CharacterManager¿¡¼­ Player ÀÎ½ºÅÏ½º¸¦ ÀÌ ½ºÅ©¸³Æ®·Î ¼³Á¤ÇÕ´Ï´Ù
+        // CharacterManagerì—ì„œ Player ì¸ìŠ¤í„´ìŠ¤ë¥¼ ì´ ìŠ¤í¬ë¦½íŠ¸ë¡œ ì„¤ì •í•©ë‹ˆë‹¤
         CharacterManager.Instance.Player = this;
 
-        // ÀÌ GameObject¿¡ ºÎÂøµÈ PlayerController¿Í PlayerCondition, Equipment ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿É´Ï´Ù
+        // ì´ GameObjectì— ë¶€ì°©ëœ PlayerControllerì™€ PlayerCondition, Equipment ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤
         controller = GetComponent<PlayerController>();
-        condition = GetComponent<PlayerCondition>();
-        equipment = GetComponent<Equipment>();
+       // condition = GetComponent<PlayerCondition>();
+       equipment = GetComponent<Equipment>();
 
-        // »óÈ£ÀÛ¿ë Äİ¹éÀ» µî·ÏÇÕ´Ï´Ù
-        controller.interactAction += HandleInteraction;
+        // ìƒí˜¸ì‘ìš© ì½œë°±ì„ ë“±ë¡í•©ë‹ˆë‹¤
+       //controller.interactAction += HandleInteraction;
 
     }
 
-    private void HandleInteraction()
-    {
-        // ÇöÀç È­¸é¿¡ »óÈ£ÀÛ¿ë °¡´ÉÇÑ ¿ÀºêÁ§Æ®°¡ ÀÖÀ¸¸é »óÈ£ÀÛ¿ëÀ» ¼öÇàÇÕ´Ï´Ù
-        if (Interaction.Instance.curInteractable != null)
-        {
-            Interaction.Instance.curInteractable.OnInteract();
-        }
-    }
+    //private void HandleInteraction()
+    //{
+    //    // í˜„ì¬ í™”ë©´ì— ìƒí˜¸ì‘ìš© ê°€ëŠ¥í•œ ì˜¤ë¸Œì íŠ¸ê°€ ìˆìœ¼ë©´ ìƒí˜¸ì‘ìš©ì„ ìˆ˜í–‰í•©ë‹ˆë‹¤
+    //    if (Interaction.Instance.curInteractable != null)
+    //    {
+    //        Interaction.Instance.curInteractable.OnInteract();
+    //    }
+    //}
 
 }

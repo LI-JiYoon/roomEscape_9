@@ -2,10 +2,13 @@ using UnityEngine;
 using RoomEscape.Managers;
 using UnityEngine.InputSystem;
 using System;
+
+
 public class PlayerController : MonoBehaviour
 {
     private CharacterController controller;
     public bool isHiding;
+    public Transform outPosition;
     public FootStep footStep;
 
 
@@ -28,8 +31,9 @@ public class PlayerController : MonoBehaviour
     public bool canLook = true;
 
     public Action inventory;
+    public Action interactAction;
 
-    private Rigidbody rigidbody;
+    public Rigidbody rigidbody;
     private bool isOptionPanelActive = false;
     public OptionUI option;
 
@@ -38,8 +42,6 @@ public class PlayerController : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         footStep = GetComponent<FootStep>();
-
-
     }
 
     void Start()
@@ -91,13 +93,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnJumpInput(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Started && IsGrounded())
-        {
-            rigidbody.AddForce(Vector2.up * jumptForce, ForceMode.Impulse);
-        }
-    }
+    //public void OnJumpInput(InputAction.CallbackContext context)
+    //{
+    //    if (context.phase == InputActionPhase.Started && IsGrounded())
+    //    {
+    //        rigidbody.AddForce(Vector2.up * jumptForce, ForceMode.Impulse);
+    //    }
+    //}
 
     public void OnRunInput(InputAction.CallbackContext context)
     {
@@ -113,21 +115,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnSitInput(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Performed)
-        {
-            moveSpeed /= 2;
-            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 0.5f, transform.localScale.z);
-            footStep.SetFootstepRateMultiplier(0.5f);  // 발소리 2배 느리게
-        }
-        else if (context.phase == InputActionPhase.Canceled)
-        {
-            moveSpeed *= 2;
-            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2f, transform.localScale.z);
-            footStep.ResetFootstepRate();  // 발소리 속도 원래대로
-        }
-    }
+    //public void OnSitInput(InputAction.CallbackContext context)
+    //{
+    //    if (context.phase == InputActionPhase.Performed)
+    //    {
+    //        moveSpeed /= 2;
+    //        transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 0.5f, transform.localScale.z);
+    //        footStep.SetFootstepRateMultiplier(0.5f);  // 발소리 2배 느리게
+    //    }
+    //    else if (context.phase == InputActionPhase.Canceled)
+    //    {
+    //        moveSpeed *= 2;
+    //        transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2f, transform.localScale.z);
+    //        footStep.ResetFootstepRate();  // 발소리 속도 원래대로
+    //    }
+    //}
 
     public void OnOptionInput(InputAction.CallbackContext context)
     {
@@ -193,33 +195,45 @@ public class PlayerController : MonoBehaviour
             inventory?.Invoke();
         }
     }
-  
-    void Interact()
+
+    public void Interact(InputAction.CallbackContext callbackContext)
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        
+        if (Interaction.Instance.curInteractable != null && callbackContext.phase == InputActionPhase.Performed)
         {
-            // Implement Interaction Logic with Objects
-            CheckForHidingSpot();
+            Debug.Log("????");
+            Interaction.Instance.curInteractable.OnInteract();
         }
+        else if (isHiding == true && outPosition != null)
+        {
+            transform.position = outPosition.position;
+            transform.rotation = outPosition.rotation;
+            rigidbody.isKinematic = false;
+            outPosition = null;
+            Debug.Log("Player is out from the locker.");
+        }
+        // Implement Interaction Logic with Objects
+        //CheckForHidingSpot();
     }
 
-    void CheckForHidingSpot()
-    {
-        // Implement logic to check if the player can hide
-        // For example, using a trigger collider to detect nearby hiding spots
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 2.0f))
-        {
-            if (hit.collider.CompareTag("HidingSpot"))
-            {
-                isHiding = true;
-                // Additional logic to visually hide the player, e.g., disabling renderer
-            }
-        }
-    }
+    //void CheckForHidingSpot()
+    //{
+    //    // Implement logic to check if the player can hide
+    //    // For example, using a trigger collider to detect nearby hiding spots
+    //    RaycastHit hit;
+    //    if (Physics.Raycast(transform.position, transform.forward, out hit, 2.0f))
+    //    {
+    //        if (hit.collider.CompareTag("HidingSpot"))
+    //        {
+    //            isHiding = true;
+    //            // Additional logic to visually hide the player, e.g., disabling renderer
+    //        }
+    //    }
+    //}
 
-    void Hide()
-    {
-        // Implement Hide Logic
-    }
+    //void Hide()
+    //{
+    //    // Implement Hide Logic
+
+    //}
 }

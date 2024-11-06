@@ -1,4 +1,12 @@
 using UnityEngine;
+public abstract class InteractableObject : MonoBehaviour, IInteractable
+{
+    public abstract string GetInteractPrompt();
+    public abstract void OnInteract();
+
+
+
+}
 
 public interface IInteractable
 {
@@ -9,11 +17,3 @@ public interface IInteractable
     void OnInteract();
 }
 
-public abstract class InteractableObject : MonoBehaviour, IInteractable
-{
-    public abstract string GetInteractPrompt();
-    public abstract void OnInteract();
-
-    
-
-}

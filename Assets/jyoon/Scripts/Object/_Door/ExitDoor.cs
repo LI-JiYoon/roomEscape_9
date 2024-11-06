@@ -15,7 +15,7 @@ public class ExitDoor : InteractableObject
     // 문과의 상호작용을 처리합니다
     public override void OnInteract()
     {
-        if (CharacterManager.Instance.Player.equipment.curEquip is KeyEquip)
+        if (CharacterManager.Instance.Player.equipment.curEquip is Equip)
         {
             // 문 열기 애니메이션을 트리거하고 열쇠를 제거합니다
             doorAnimator.SetTrigger("Open");

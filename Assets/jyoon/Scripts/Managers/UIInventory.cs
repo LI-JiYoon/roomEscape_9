@@ -213,5 +213,40 @@ namespace RoomEscape.Managers
         {
             return false;
         }
+
+
+        public void OnEquipButton()
+        {
+            if (slots[curEquipIndex].equipped)
+            {
+                UnEquip(curEquipIndex);
+            }
+
+            slots[selectedItemIndex].equipped = true;
+            curEquipIndex = selectedItemIndex;
+            CharacterManager.Instance.Player.equipment.EquipNew(selectedItem.item);
+            UpdateUI();
+
+            SelectItem(selectedItemIndex);
+        }
+
+        void UnEquip(int index)
+        {
+            slots[index].equipped = false;
+            CharacterManager.Instance.Player.equipment.UnEquip();
+            UpdateUI();
+
+            if (selectedItemIndex == index)
+            {
+                SelectItem(selectedItemIndex);
+            }
+        }
+
+        public void OnUpEquipButton()
+        {
+            UnEquip(selectedItemIndex);
+        }
+
+       
     }
 }

@@ -2,24 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Example
+namespace RoomEscape
 {
-    public class Key : Item
+    public class Key : InteractableObject
     {
-        public Inventory target;
-        public bool active = false;
-        void Update()
+        Player player;
+
+
+
+        public override string GetInteractPrompt()
         {
-            if (active)
-            {
-                active = false;
-                target.¾ÆÀÌÅÛ³Ö±â(Excute);
-            }
+            return "[E] íšë“";
         }
 
-        public override void Excute()
+        // ê´€ë¬¼í•¨ê³¼ì˜ ìƒí˜¸ì‘ìš©ì„ ì²˜ë¦¬í•©ë‹ˆë‹¤
+        public override void OnInteract()
         {
-            Debug.Log("key ±¸µ¶ ½ÃÀÛ!");
+            player = CharacterManager.Instance.Player;
+            if (player.controller.isHiding == false)
+            {
+                //player.controller.isHiding = true;
+                Invoke("SetIsHidingTrue", 0.5f);
+                player.transform.position = hidePosition.position;
+                player.transform.rotation = hidePosition.rotation;
+                player.controller.rigidbody.isKinematic = true;
+                player.controller.outPosition = outPosition;
+                Debug.Log("Player is hiding in the locker.");
+            }
+            //else
+            //{
+            //    //player.controller.isHiding = false;
+            //    Invoke("SetIsHidingFalse", 0.5f);
+            //    player.transform.position = outPosition.position;
+            //    player.transform.rotation = outPosition.rotation;
+            //    player.controller.rigidbody.isKinematic = false;
+            //    Debug.Log("Player is out from the locker.");
+            //}
         }
     }
 }
