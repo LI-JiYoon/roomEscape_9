@@ -39,25 +39,32 @@ public class Ending : MonoBehaviour
 
     public void GameEnding()
     {
-        if (!excapeKey) return;
+        if (!excapeKey)
+        {
+            //배드 엔딩 근데 조건이 애매함
+            //return;
 
-        this.gameObject.SetActive(true);
+            badEndingImage.enabled = true;
+            endingTitleStr = "BAD ENDING";
+            endingStoryStr = "끝내 탈출에 실패한 주인공은 그곳에 영원히 갇혀, 귀신의 집의 또 다른 존재로 남게 된다.";
+        }
+
 
         if (trueEndingItem)
         {
             trueEndingImage.enabled = true;
-            endingTitleStr = "True Ending";
-            endingStoryStr = "트루엔딩 탈출 스토리";
+            endingTitleStr = "TRUE ENDING";
+            endingStoryStr = "탈출 중 발견한 증거로 모든 사건의 음모를 알게 된 주인공은 진실을 밝혀내기 위해 결단을 내린다.";
         }
         else
         {
             normalEndingImage.enabled = true;
-            endingTitleStr = "Normal Ending";
-            endingStoryStr = "그냥 탈출 스토리";
+            endingTitleStr = "NORMAL ENDING";
+            endingStoryStr = "간신히 병원을 빠져나온 주인공은 무사히 탈출에 성공하지만, 끔찍했던 기억만이 남아 있다.";
         }
 
         SetEndingText();
-
+        this.gameObject.SetActive(true);
     }
 
     public void SetEndingText()
