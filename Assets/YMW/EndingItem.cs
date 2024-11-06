@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum ItemType
+public enum ItemsType
 {
     EscapeKey,
     ForTrueEnddingItem
@@ -12,7 +12,7 @@ public enum ItemType
 public class EndingItem : MonoBehaviour
 {
     public Ending ending;
-    public ItemType type;
+    public ItemsType type;
 
     private void Start()
     {
@@ -34,11 +34,11 @@ public class EndingItem : MonoBehaviour
         {
             switch (type)
             {
-                case ItemType.EscapeKey:
+                case ItemsType.EscapeKey:
                     ending.excapeKey = true;
                     break;
 
-                case ItemType.ForTrueEnddingItem:
+                case ItemsType.ForTrueEnddingItem:
                     ending.trueEndingItem = true;
                     break;
             }
