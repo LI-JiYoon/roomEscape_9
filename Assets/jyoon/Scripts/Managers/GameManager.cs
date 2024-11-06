@@ -12,6 +12,7 @@ namespace RoomEscape.Managers
         public bool isGamePaused;
         public Canvas gameUICanvas;  // Reference to the UI Canvas
         public PlayerController playerController;
+        public KeyPositionManager keyPositionManager;
 
 
         void Awake()
@@ -21,7 +22,20 @@ namespace RoomEscape.Managers
                 instance = this;
             }
         }
-
+        private void Start()
+        {
+            if (keyPositionManager != null)
+            {
+                keyPositionManager.PopulateKeyPositions();
+                // 이후 열쇠 오브젝트를 랜덤 위치에 생성하는 작업도 여기서 호출 가능
+                Vector3 randomPosition = keyPositionManager.GetRandomKeyPosition();
+                // 열쇠 생성 함수 호출 (예: Instantiate(keyPrefab, randomPosition, Quaternion.identity));
+            }
+            else
+            {
+                Debug.LogError("KeyPositionManager is not assigned in GameManager.");
+            }
+        }
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.P))
