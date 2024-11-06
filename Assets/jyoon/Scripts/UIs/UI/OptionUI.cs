@@ -94,17 +94,11 @@ public class OptionUI : MonoBehaviour
 
     public void OnMusicSliderValueChanged(float value)
     {
-        if (SoundManager.Instance != null)
-        {
             SoundManager.Instance.SetMusicVolume(value);
-        }
     }
 
     public void OnSoundSliderValueChanged(float value)
     {
-        if (SoundManager.Instance != null)
-        {
             SoundManager.Instance.SetSoundVolume(value);
-        }
     }
 }
