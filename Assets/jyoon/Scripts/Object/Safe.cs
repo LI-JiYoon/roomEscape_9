@@ -9,11 +9,10 @@ public class Safe : InteractableObject
     {
         return "[E] 열기";
     }
-
     // 금고와의 상호작용을 처리합니다
     public override void OnInteract()
     {
-        // 금고 코드를 입력할 수 있는 UI를 활성화합니다
-        safeUI.SetActive(true);
+        // 금고 코드를 입력할 수 있는 UI를 PopupManager를 통해 활성화합니다
+        PopupManager.Instance.ShowPopup(safeUI);
     }
 }

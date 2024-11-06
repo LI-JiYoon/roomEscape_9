@@ -3,51 +3,55 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemSlot : MonoBehaviour
+
+namespace RoomEscape.Managers
 {
-    public ItemData item;
-
-    public UIInventory inventory;
-    public Button button;
-    public Image icon;
-    public TextMeshProUGUI quatityText;
-    private Outline outline;
-
-    public int index;
-    public bool equipped;
-    public int quantity;
-
-    private void Awake()
+    public class ItemSlot : MonoBehaviour
     {
-        outline = GetComponent<Outline>();
-    }
+        public ItemData item;
 
-    private void OnEnable()
-    {
-        outline.enabled = equipped;
-    }
+        public UIInventory inventory;
+        public Button button;
+        public Image icon;
+        public TextMeshProUGUI quatityText;
+        private Outline outline;
 
-    public void Set()
-    {
-        icon.gameObject.SetActive(true);
-        icon.sprite = item.icon;
-        quatityText.text = quantity > 1 ? quantity.ToString() : string.Empty;
+        public int index;
+        public bool equipped;
+        public int quantity;
 
-        if (outline != null)
+        private void Awake()
+        {
+            outline = GetComponent<Outline>();
+        }
+
+        private void OnEnable()
         {
             outline.enabled = equipped;
         }
-    }
 
-    public void Clear()
-    {
-        item = null;
-        icon.gameObject.SetActive(false);
-        quatityText.text = string.Empty;
-    }
+        public void Set()
+        {
+            icon.gameObject.SetActive(true);
+            icon.sprite = item.icon;
+            quatityText.text = quantity > 1 ? quantity.ToString() : string.Empty;
 
-    public void OnClickButton()
-    {
-        inventory.SelectItem(index);
+            if (outline != null)
+            {
+                outline.enabled = equipped;
+            }
+        }
+
+        public void Clear()
+        {
+            item = null;
+            icon.gameObject.SetActive(false);
+            quatityText.text = string.Empty;
+        }
+
+        public void OnClickButton()
+        {
+            inventory.SelectItem(index);
+        }
     }
 }
