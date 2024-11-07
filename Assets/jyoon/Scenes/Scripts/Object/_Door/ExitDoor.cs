@@ -6,24 +6,25 @@ public class ExitDoor : InteractableObject
 {
     public Animator doorAnimator;
 
-    // ¹®°ú »óÈ£ÀÛ¿ëÇÒ ¶§ Ç¥½ÃÇÒ ÇÁ·ÒÇÁÆ® ÅØ½ºÆ®¸¦ °¡Á®¿É´Ï´Ù
+    // ë¬¸ê³¼ ìƒí˜¸ì‘ìš©í•  ë•Œ í‘œì‹œí•  í”„ë¡¬í”„íŠ¸ í…ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤
     public override string GetInteractPrompt()
     {
-        return "Press 'E' to open the door.";
+        return "[E]'ì—´ê¸°";
     }
 
-    // ¹®°úÀÇ »óÈ£ÀÛ¿ëÀ» Ã³¸®ÇÕ´Ï´Ù
+    // ë¬¸ê³¼ì˜ ìƒí˜¸ì‘ìš©ì„ ì²˜ë¦¬í•©ë‹ˆë‹¤
     public override void OnInteract()
     {
+
         if (CharacterManager.Instance.Player.equipment.curEquip is Equip)
         {
-            // ¹® ¿­±â ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Æ®¸®°ÅÇÏ°í ¿­¼è¸¦ Á¦°ÅÇÕ´Ï´Ù
+            // ë¬¸ ì—´ê¸° ì• ë‹ˆë©”ì´ì…˜ì„ íŠ¸ë¦¬ê±°í•˜ê³  ì—´ì‡ ë¥¼ ì œê±°í•©ë‹ˆë‹¤
             doorAnimator.SetTrigger("Open");
             CharacterManager.Instance.Player.equipment.UnEquip();
         }
         else
         {
-            PopupManager.Instance.ShowPopup(PopupManager.Instance.CreateMessagePopup("¿­¼è°¡ ÇÊ¿äÇØ."));
+            PopupManager.Instance.ShowPopup(PopupManager.Instance.CreateMessagePopup("ì—´ì‡ ê°€ í•„ìš”í•´."));
         }
     }
 }

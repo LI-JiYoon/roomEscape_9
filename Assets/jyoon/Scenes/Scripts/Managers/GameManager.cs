@@ -26,7 +26,7 @@ namespace RoomEscape.Managers
         void Start()
         {
             // 게임 시작 시 저장된 진행 상황을 불러와 게임 상태를 업데이트합니다.
-            UpdateGameState();
+            //UpdateGameState();
         }
         void Update()
         {

@@ -5,28 +5,28 @@ public class Safe : InteractableObject
 {
     public GameObject safeUI;
     public TMP_InputField inputField;
-    public string correctCode = "ÇÒ·ÎÀ©";
+    public string correctCode = "í• ë¡œìœˆ";
     public ItemData rewardItem;
 
-    // ±İ°í¿Í »óÈ£ÀÛ¿ëÇÒ ¶§ Ç¥½ÃÇÒ ÇÁ·ÒÇÁÆ® ÅØ½ºÆ®¸¦ °¡Á®¿É´Ï´Ù
+    // ê¸ˆê³ ì™€ ìƒí˜¸ì‘ìš©í•  ë•Œ í‘œì‹œí•  í”„ë¡¬í”„íŠ¸ í…ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤
     public override string GetInteractPrompt()
     {
         return "Press 'E' to enter code.";
     }
 
-    // ±İ°í¿ÍÀÇ »óÈ£ÀÛ¿ëÀ» Ã³¸®ÇÕ´Ï´Ù
+    // ê¸ˆê³ ì™€ì˜ ìƒí˜¸ì‘ìš©ì„ ì²˜ë¦¬í•©ë‹ˆë‹¤
     public override void OnInteract()
     {
-        // ±İ°í ÄÚµå¸¦ ÀÔ·ÂÇÒ ¼ö ÀÖ´Â UI¸¦ PopupManager¸¦ ÅëÇØ È°¼ºÈ­ÇÕ´Ï´Ù
+        // ê¸ˆê³  ì½”ë“œë¥¼ ì…ë ¥í•  ìˆ˜ ìˆëŠ” UIë¥¼ PopupManagerë¥¼ í†µí•´ í™œì„±í™”í•©ë‹ˆë‹¤
         PopupManager.Instance.ShowPopup(safeUI);
     }
 
-    // ÀÔ·ÂµÈ ÄÚµå È®ÀÎ
+    // ì…ë ¥ëœ ì½”ë“œ í™•ì¸
     public void OnSubmitCode()
     {
         if (inputField.text == correctCode)
         {
-            // Á¤´äÀÌ ¸ÂÀ¸¸é º¸»ó ¾ÆÀÌÅÛÀ» ÀÎº¥Åä¸®¿¡ Ãß°¡ÇÕ´Ï´Ù
+            // ì •ë‹µì´ ë§ìœ¼ë©´ ë³´ìƒ ì•„ì´í…œì„ ì¸ë²¤í† ë¦¬ì— ì¶”ê°€í•©ë‹ˆë‹¤
             Player player = CharacterManager.Instance.Player;
             player.itemData = rewardItem;
             player.addItem?.Invoke();
@@ -34,13 +34,13 @@ public class Safe : InteractableObject
             // Save progress
             SaveManager.Instance.SavePuzzleSolved(gameObject.name);
 
-            // ±İ°í UI ´İ±â
+            // ê¸ˆê³  UI ë‹«ê¸°
             PopupManager.Instance.HidePopup(safeUI);
         }
         else
         {
-            // Á¤´äÀÌ Æ²¸®¸é ¿À·ù ¸Ş½ÃÁö ÆË¾÷
-            UIManager.Instance.ShowErrorMessage("Á¤´ä°ú ´Ù¸¨´Ï´Ù");
+            // ì •ë‹µì´ í‹€ë¦¬ë©´ ì˜¤ë¥˜ ë©”ì‹œì§€ íŒì—…
+            //UIManager.Instance.ShowErrorMessage("ì •ë‹µê³¼ ë‹¤ë¦…ë‹ˆë‹¤");
         }
     }
 }

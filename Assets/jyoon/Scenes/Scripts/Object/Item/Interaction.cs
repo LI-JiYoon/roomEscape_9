@@ -47,9 +47,45 @@ public class Interaction : MonoBehaviour
                 // 히트한 오브젝트가 현재 상호작용 오브젝트와 다르면 업데이트합니다
                 if (hit.collider.gameObject != curInteractGameObject)
                 {
-                    curInteractGameObject = hit.collider.gameObject;
-                    curInteractable = hit.collider.GetComponent<IInteractable>();
-                    SetPromptText();
+                    // 캐비닛
+                    if (hit.transform.tag == "locker" && Vector3.Distance(transform.position, hit.point) < 1f)
+                    {
+                        curInteractGameObject = hit.collider.gameObject;
+                        curInteractable = hit.collider.GetComponent<IInteractable>();
+                        SetPromptText();
+                    }
+                    // 열쇠
+                    else if (hit.transform.tag == "key" && Vector3.Distance(transform.position, hit.point) < 1.5f)
+                    {
+                        curInteractGameObject = hit.collider.gameObject;
+                        curInteractable = hit.collider.GetComponent<IInteractable>();
+                        SetPromptText();
+                    }
+                    else
+                    {
+                        isCheck = false;
+                        // 상호작용 가능한 오브젝트를 찾지 못한 경우 현재 상호작용 오브젝트를 지웁니다
+                        curInteractGameObject = null;
+                        curInteractable = null;
+                        promptText.gameObject.SetActive(false);
+                    }
+                }
+                else if (hit.transform.tag == "locker" && Vector3.Distance(transform.position, hit.point) >= 1f)
+                {
+                    isCheck = false;
+                    // 상호작용 가능한 오브젝트를 찾지 못한 경우 현재 상호작용 오브젝트를 지웁니다
+                    curInteractGameObject = null;
+                    curInteractable = null;
+                    promptText.gameObject.SetActive(false);
+                }
+                // 열쇠
+                else if (hit.transform.tag == "key" && Vector3.Distance(transform.position, hit.point) >= 1.5f)
+                {
+                    isCheck = false;
+                    // 상호작용 가능한 오브젝트를 찾지 못한 경우 현재 상호작용 오브젝트를 지웁니다
+                    curInteractGameObject = null;
+                    curInteractable = null;
+                    promptText.gameObject.SetActive(false);
                 }
             }
             else
